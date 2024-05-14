@@ -1,48 +1,52 @@
-package com.example.testing; // замените 'com.example.yourapp' на ваш пакет
+package com.example.testing;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 public class DataActivity extends AppCompatActivity {
 
-    TextView textViewWelcome, textViewUsername, textViewEmail;
-    Button buttonLogout;
+    TextView textViewData, textViewUsername;
+    SQLiteDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data);
-
-        textViewWelcome = findViewById(R.id.textViewWelcome);
+        Button logoutButton = findViewById(R.id.buttonLogout);
+        logoutButton.setOnClickListener(view -> {
+                    // Действия по выходу
+                    // 1. Очистка данных пользователя, например, SharedPreferences
+                    // 2. Переход на экран входа
+                    finish(); // Закрытие текущей Activity
+                });
+        textViewData = findViewById(R.id.textViewEmail);
         textViewUsername = findViewById(R.id.textViewUsername);
-        textViewEmail = findViewById(R.id.textViewEmail);
-        buttonLogout = findViewById(R.id.buttonLogout);
 
-        // Получение данных пользователя (предполагается, что они передаются через Intent)
-        Intent intent = getIntent();
-        String username = intent.getStringExtra("username");
-        String email = intent.getStringExtra("email");
+        // Получение имени пользователя из интента
+        String username = getIntent().getStringExtra("username");
+        textViewUsername.setText("Welcome, " + username);
 
-        // Отображение данных пользователя
-        textViewUsername.setText("Имя пользователя: " + username);
-        textViewEmail.setText("Email: " + email);
+        // Получение данных из БД
+        db = openOrCreateDatabase("UserData", MODE_PRIVATE, null);
+        String data = loadDataFromDatabase(username);
+        textViewData.setText(data);
 
-        // Обработка нажатия на кнопку "Выйти"
-        buttonLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Здесь можно добавить логику выхода (например, очистку данных сессии)
+    }
 
-                // Возврат на экран входа
-                Intent loginIntent = new Intent(DataActivity.this, MainActivity.class);
-                startActivity(loginIntent);
-                finish(); // Закрытие ActivityData
-            }
-        });
+    private String loadDataFromDatabase(String username) {
+        Cursor cursor = db.rawQuery("SELECT password FROM users WHERE login=?", new String[]{username});
+        StringBuilder sb = new StringBuilder();
+        if (cursor.moveToFirst()) {
+            String password = cursor.getString(cursor.getColumnIndexOrThrow("password"));
+            sb.append("Your password: ").append(password);
+        }
+        cursor.close();
+        db.close();
+        return sb.toString();
     }
 }

@@ -2,8 +2,9 @@ package com.example.testing;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
 
     EditText editTextUsername, editTextPassword;
     Button buttonLogin, buttonRegister;
-
+    SQLiteDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +27,10 @@ public class MainActivity extends AppCompatActivity {
         buttonLogin = findViewById(R.id.buttonLogin);
         buttonRegister = findViewById(R.id.buttonRegister);
 
+        // Создание и подключение к БД
+        db = openOrCreateDatabase("UserData", MODE_PRIVATE, null);
+        db.execSQL("CREATE TABLE IF NOT EXISTS users (login TEXT PRIMARY KEY, password TEXT);");
+
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -35,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
                 if (isValidUser(username, password)) {
                     // Авторизация успешна
                     Intent intent = new Intent(MainActivity.this, DataActivity.class);
+                    intent.putExtra("username", username);
                     startActivity(intent);
                 } else {
                     Toast.makeText(MainActivity.this, "Invalid username or password", Toast.LENGTH_SHORT).show();
@@ -51,6 +57,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    private boolean isValidUser(String username, String password) {return false;
+
+    private boolean isValidUser(String username, String password) {
+        // Проверка данных в БД
+        Cursor cursor = db.rawQuery("SELECT * FROM users WHERE login=? AND password=?", new String[]{username, password});
+        if (cursor.moveToFirst()) {
+            cursor.close();
+            return true;
+        } else {
+            cursor.close();
+            return false;
+        }
     }
 }
