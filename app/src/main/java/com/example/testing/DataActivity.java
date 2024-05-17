@@ -4,6 +4,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +18,8 @@ public class DataActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data);
+        ImageView imageView = findViewById(R.id.imageView);
+        imageView.setImageResource(R.drawable.avatar);
         Button logoutButton = findViewById(R.id.buttonLogout);
         logoutButton.setOnClickListener(view -> {
                     finish(); // Закрытие текущей Activity

@@ -16,11 +16,14 @@
         android:text="Добро пожаловать!"
         android:textSize="24sp" />
 
+
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="149dp"
-        android:layout_height="wrap_content"
-        tools:src="@tools:sample/avatars" />
+        android:layout_width="150dp"
+        android:layout_height="148dp"
+        android:scaleType="fitCenter"
+        android:visibility="visible"
+        tools:src="@drawable/avatar" />
 
     <TextView
         android:id="@+id/textViewUsername"
