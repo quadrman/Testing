@@ -2,12 +2,15 @@ package com.example.testing;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import java.util.Objects;
 
 public class RegistrationActivity extends AppCompatActivity {
 
@@ -38,10 +41,20 @@ public class RegistrationActivity extends AppCompatActivity {
                     Toast.makeText(RegistrationActivity.this, "Пожалуйста заполните все поля.", Toast.LENGTH_SHORT).show();
                 } else {
                     // Вставка данных в базу данных
-                    db.execSQL("INSERT INTO users (login, password,email,click) VALUES (?, ?, ?,?)", new String[]{username, password,email,"0"});
-                    Toast.makeText(RegistrationActivity.this, "Регистрация успешна", Toast.LENGTH_SHORT).show();
-                    finish(); // Закрытие формы регистрации
-                    db.close();
+
+                    Cursor cursor = db.rawQuery("SELECT 1 FROM users WHERE login = ?", new String[]{username});
+                    if (cursor.moveToFirst()) {
+                        // Пользователь с таким логином уже существует
+                        Toast.makeText(RegistrationActivity.this, "Данный логин уже зарегистрирован!", Toast.LENGTH_SHORT).show();
+                        cursor.close();
+                    } else {
+                        // Пользователя с таким логином нет, можно регистрировать
+                        db.execSQL("INSERT INTO users (login, password, email, click) VALUES (?, ?, ?, ?)", new String[]{username, password, email, "0"});
+                        Toast.makeText(RegistrationActivity.this, "Регистрация успешна", Toast.LENGTH_SHORT).show();
+                        finish(); // Закрытие формы регистрации
+                        db.close();
+                    }
+
                 }
             }
         });
