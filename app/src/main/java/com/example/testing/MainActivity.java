@@ -29,7 +29,8 @@ public class MainActivity extends AppCompatActivity {
 
         // Создание и подключение к БД
         db = openOrCreateDatabase("UserData", MODE_PRIVATE, null);
-        db.execSQL("CREATE TABLE IF NOT EXISTS users (login TEXT PRIMARY KEY, password TEXT);");
+
+        db.execSQL("CREATE TABLE IF NOT EXISTS users (login TEXT PRIMARY KEY not null, password TEXT not null, email text not null,click int);");
 
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,8 +62,10 @@ public class MainActivity extends AppCompatActivity {
     private boolean isValidUser(String username, String password) {
         // Проверка данных в БД
         Cursor cursor = db.rawQuery("SELECT * FROM users WHERE login=? AND password=?", new String[]{username, password});
+
         if (cursor.moveToFirst()) {
             cursor.close();
+
             return true;
         } else {
             cursor.close();

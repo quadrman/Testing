@@ -19,9 +19,6 @@ public class DataActivity extends AppCompatActivity {
         setContentView(R.layout.activity_data);
         Button logoutButton = findViewById(R.id.buttonLogout);
         logoutButton.setOnClickListener(view -> {
-                    // Действия по выходу
-                    // 1. Очистка данных пользователя, например, SharedPreferences
-                    // 2. Переход на экран входа
                     finish(); // Закрытие текущей Activity
                 });
         textViewData = findViewById(R.id.textViewEmail);
@@ -29,24 +26,51 @@ public class DataActivity extends AppCompatActivity {
 
         // Получение имени пользователя из интента
         String username = getIntent().getStringExtra("username");
-        textViewUsername.setText("Welcome, " + username);
+        textViewUsername.setText("Приветствую, " + username);
 
         // Получение данных из БД
         db = openOrCreateDatabase("UserData", MODE_PRIVATE, null);
         String data = loadDataFromDatabase(username);
         textViewData.setText(data);
+        TextView textKolClick = findViewById(R.id.textKolClick);
+        String clicks = loadClicksFromDatabase(username);
+        textKolClick.setText(clicks);
 
+        Button buttonClick = findViewById(R.id.buttonClick);
+        buttonClick.setOnClickListener((view -> {
+
+            String text = textKolClick.getText().toString();
+            int colonIndex = text.indexOf(":");
+            String numberString = text.substring(colonIndex + 1).trim();
+            int number = Integer.parseInt(numberString);
+            // Увеличиваем число на 1
+            number++;
+            // Записываем новое число обратно в TextView
+            String clicker = loadClicksFromDatabase(username);
+            textKolClick.setText(clicker);
+            db.execSQL("UPDATE users SET click = ? WHERE login = ?", new Object[]{number, username});
+
+        }));
     }
 
     private String loadDataFromDatabase(String username) {
-        Cursor cursor = db.rawQuery("SELECT password FROM users WHERE login=?", new String[]{username});
+        Cursor cursor = db.rawQuery("SELECT email FROM users WHERE login=?", new String[]{username});
         StringBuilder sb = new StringBuilder();
         if (cursor.moveToFirst()) {
-            String password = cursor.getString(cursor.getColumnIndexOrThrow("password"));
-            sb.append("Your password: ").append(password);
+            String email = cursor.getString(cursor.getColumnIndexOrThrow("email"));
+            sb.append("Ваша почта: ").append(email);
         }
         cursor.close();
-        db.close();
+        return sb.toString();
+    }
+    private String loadClicksFromDatabase(String username) {
+        Cursor cursor = db.rawQuery("SELECT click FROM users WHERE login=?", new String[]{username});
+        StringBuilder sb = new StringBuilder();
+        if (cursor.moveToFirst()) {
+            String click = cursor.getString(cursor.getColumnIndexOrThrow("click"));
+            sb.append("Кол-во кликов: ").append(click);
+        }
+        cursor.close();
         return sb.toString();
     }
 }

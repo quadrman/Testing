@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 public class RegistrationActivity extends AppCompatActivity {
 
-    EditText editTextRegUsername, editTextRegPassword;
+    EditText editTextRegUsername, editTextRegPassword,edittextRegemail;
     Button buttonRegister;
     SQLiteDatabase db;
 
@@ -23,6 +23,7 @@ public class RegistrationActivity extends AppCompatActivity {
         editTextRegUsername = findViewById(R.id.editTextUsername);
         editTextRegPassword = findViewById(R.id.editTextPassword);
         buttonRegister = findViewById(R.id.buttonRegister);
+        edittextRegemail = findViewById(R.id.editTextEmail);
 
         // Получение доступа к базе данных
         db = openOrCreateDatabase("UserData", MODE_PRIVATE, null);
@@ -32,14 +33,15 @@ public class RegistrationActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String username = editTextRegUsername.getText().toString();
                 String password = editTextRegPassword.getText().toString();
-
+                String email = edittextRegemail.getText().toString();
                 if (username.isEmpty() || password.isEmpty()) {
-                    Toast.makeText(RegistrationActivity.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegistrationActivity.this, "Пожалуйста заполните все поля.", Toast.LENGTH_SHORT).show();
                 } else {
                     // Вставка данных в базу данных
-                    db.execSQL("INSERT INTO users (login, password) VALUES (?, ?)", new String[]{username, password});
-                    Toast.makeText(RegistrationActivity.this, "Registration successful", Toast.LENGTH_SHORT).show();
+                    db.execSQL("INSERT INTO users (login, password,email,click) VALUES (?, ?, ?,?)", new String[]{username, password,email,"0"});
+                    Toast.makeText(RegistrationActivity.this, "Регистрация успешна", Toast.LENGTH_SHORT).show();
                     finish(); // Закрытие формы регистрации
+                    db.close();
                 }
             }
         });

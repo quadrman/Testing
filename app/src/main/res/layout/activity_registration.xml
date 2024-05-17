@@ -37,6 +37,20 @@
         android:inputType="textPassword"
         android:padding="12dp" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Электронная почта" />
+
+    <EditText
+        android:id="@+id/editTextEmail"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/rounded_edittext"
+        android:inputType="textEmailAddress"
+        android:padding="12dp" />
+
     <Button
         android:id="@+id/buttonRegister"
         android:layout_width="match_parent"
@@ -45,5 +59,7 @@
         android:background="@drawable/rounded_button"
         android:text="Зарегистрироваться"
         android:textColor="@android:color/white" />
+
+
 
 </LinearLayout>
