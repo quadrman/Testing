@@ -29,7 +29,8 @@ public class MainActivity extends AppCompatActivity {
 
         // Создание и подключение к БД
         db = openOrCreateDatabase("UserData", MODE_PRIVATE, null);
-        db.execSQL("CREATE TABLE IF NOT EXISTS users (login TEXT PRIMARY KEY, password TEXT);");
+
+        db.execSQL("CREATE TABLE IF NOT EXISTS users (login TEXT PRIMARY KEY, password TEXT,email TEXT,click TEXT);");
 
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override

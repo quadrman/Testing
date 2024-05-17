@@ -6,14 +6,17 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:visibility="visible">
 
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="32dp"
+        android:visibility="visible"
         app:srcCompat="@drawable/pick"
-        tools:srcCompat="@drawable/pick" />
+        tools:srcCompat="@drawable/pick"
+        tools:visibility="visible" />
 
     <TextView
         android:layout_width="wrap_content"

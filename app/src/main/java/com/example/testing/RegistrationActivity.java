@@ -10,12 +10,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.util.Objects;
-
 public class RegistrationActivity extends AppCompatActivity {
 
     EditText editTextRegUsername, editTextRegPassword,edittextRegemail;
-    Button buttonRegister;
+    Button buttonRegister,buttonAlredy;
     SQLiteDatabase db;
 
     @Override
@@ -27,9 +25,17 @@ public class RegistrationActivity extends AppCompatActivity {
         editTextRegPassword = findViewById(R.id.editTextPassword);
         buttonRegister = findViewById(R.id.buttonRegister);
         edittextRegemail = findViewById(R.id.editTextEmail);
+        buttonAlredy = findViewById(R.id.buttonalready);
 
         // Получение доступа к базе данных
         db = openOrCreateDatabase("UserData", MODE_PRIVATE, null);
+        buttonAlredy.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
