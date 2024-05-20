@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout"
     android:layout_width="match_parent"
@@ -15,6 +16,7 @@
         android:layout_marginTop="32dp"
         android:text="@string/Привествие"
         android:textColor="#FFFFFF"
+
         android:textSize="24sp" />
 
 
@@ -22,7 +24,7 @@
         android:id="@+id/imageView"
         android:layout_width="150dp"
         android:layout_height="148dp"
-        android:importantForAccessibility="no" android:scaleType="fitCenter"
+        android:scaleType="fitCenter"
         android:visibility="visible"
         tools:src="@drawable/avatar" />
 
@@ -31,16 +33,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="@string/user_name"
-        android:textColor="#FFFFFF" />
+        android:text="Имя пользователя: " />
 
     <TextView
         android:id="@+id/textViewEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="@string/email2"
-        android:textColor="#FFFFFF" />
+        android:text="Email: " />
 
     <Button
         android:id="@+id/buttonLogout"
@@ -48,7 +48,7 @@
         android:layout_height="48dp"
         android:layout_marginTop="32dp"
         android:background="@drawable/rounded_button"
-        android:text="@string/exit"
+        android:text="Выйти"
         android:textColor="@android:color/white" />
 
     <Button
@@ -58,18 +58,14 @@
         android:layout_marginTop="32dp"
         android:background="@drawable/rounded_button"
         android:text="CLICK ME"
-        android:textColor="@android:color/white"
-        tools:ignore="HardcodedText" />
+        android:textColor="@android:color/white" />
 
     <TextView
         android:id="@+id/textKolClick"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Кол-во кликов: "
-        tools:ignore="HardcodedText"
-
-        android:textColor="#FFFFFF" />
+        android:text="Кол-во кликов: " />
 
     <Button
         android:id="@+id/buttonColor"
@@ -78,7 +74,6 @@
         android:layout_marginTop="32dp"
         android:background="@drawable/rounded_button"
         android:text="Поменять цвет"
-        tools:ignore="HardcodedText"
         android:textColor="@android:color/white" />
 
 </LinearLayout>

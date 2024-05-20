@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.text.method.PasswordTransformationMethod;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -49,6 +51,14 @@ public class MainActivity extends AppCompatActivity {
             // Переход на форму регистрации
             Intent intent = new Intent(MainActivity.this, RegistrationActivity.class);
             startActivity(intent);
+        });
+        CheckBox ShowPassword = findViewById(R.id.checkBoxShowPassword);
+        ShowPassword.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                editTextPassword.setTransformationMethod(null);
+            } else {
+                editTextPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            }
         });
     }
 

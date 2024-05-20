@@ -1,13 +1,16 @@
 package com.example.testing;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.text.method.PasswordTransformationMethod;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class RegistrationActivity extends AppCompatActivity {
 
@@ -30,7 +33,7 @@ public class RegistrationActivity extends AppCompatActivity {
         db = openOrCreateDatabase("UserData", MODE_PRIVATE, null);
         buttonAlready.setOnClickListener(v -> finish());
 
-        buttonRegister.setOnClickListener(view -> {
+        buttonRegister.setOnClickListener(v -> {
             String username = editTextRegUsername.getText().toString();
             String password = editTextRegPassword.getText().toString();
             String email = edittextRegemail.getText().toString();
@@ -51,6 +54,14 @@ public class RegistrationActivity extends AppCompatActivity {
                     finish(); // Закрытие формы регистрации
                     db.close();
                 }
+                CheckBox ShowPassword = findViewById(R.id.checkBoxShowPassword);
+                ShowPassword.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                    if (isChecked) {
+                        editTextRegPassword.setTransformationMethod(null);
+                    } else {
+                        editTextRegPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    }
+                });
 
             }
         });
