@@ -13,6 +13,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="32dp"
+        android:importantForAccessibility="no"
         android:visibility="visible"
         app:srcCompat="@drawable/pick"
         tools:srcCompat="@drawable/pick"
@@ -22,7 +23,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Логин" />
+        android:text="Логин"
+        tools:ignore="HardcodedText" />
 
     <EditText
         android:id="@+id/editTextUsername"
@@ -30,21 +32,26 @@
         android:layout_height="48dp"
         android:background="@drawable/rounded_edittext"
         android:inputType="text"
-        android:padding="12dp" />
+        android:padding="12dp"
+        android:textColor="#000000"
+        tools:ignore="Autofill,LabelFor" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Пароль" />
+        android:text="Пароль"
+        tools:ignore="HardcodedText" />
 
     <EditText
         android:id="@+id/editTextPassword"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="@drawable/rounded_edittext"
-        android:inputType="textPassword"
-        android:padding="12dp" />
+        android:importantForAutofill="no" android:inputType="textPassword"
+        android:padding="12dp"
+        android:textColor="#000000"
+        tools:ignore="LabelFor" />
 
     <Button
         android:id="@+id/buttonLogin"
@@ -53,7 +60,8 @@
         android:layout_marginTop="32dp"
         android:background="@drawable/rounded_button"
         android:text="Войти"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"
+        tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/buttonRegister"
@@ -62,6 +70,7 @@
         android:layout_marginTop="16dp"
         android:background="@drawable/rounded_button"
         android:text="Нет аккаунта? Зарегистрироваться"
-        android:textColor="@color/blue" />
+        android:textColor="@color/blue"
+        tools:ignore="HardcodedText" />
 
 </LinearLayout>

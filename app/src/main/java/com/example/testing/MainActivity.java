@@ -1,15 +1,14 @@
 package com.example.testing;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,30 +31,24 @@ public class MainActivity extends AppCompatActivity {
 
         db.execSQL("CREATE TABLE IF NOT EXISTS users (login TEXT PRIMARY KEY, password TEXT,email TEXT,click TEXT);");
 
-        buttonLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String username = editTextUsername.getText().toString();
-                String password = editTextPassword.getText().toString();
+        buttonLogin.setOnClickListener(view -> {
+            String username = editTextUsername.getText().toString();
+            String password = editTextPassword.getText().toString();
 
-                if (isValidUser(username, password)) {
-                    // Авторизация успешна
-                    Intent intent = new Intent(MainActivity.this, DataActivity.class);
-                    intent.putExtra("username", username);
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(MainActivity.this, "Неправильный логин или пароль", Toast.LENGTH_SHORT).show();
-                }
+            if (isValidUser(username, password)) {
+                // Авторизация успешна
+                Intent intent = new Intent(MainActivity.this, DataActivity.class);
+                intent.putExtra("username", username);
+                startActivity(intent);
+            } else {
+                Toast.makeText(MainActivity.this, "Неправильный логин или пароль", Toast.LENGTH_SHORT).show();
             }
         });
 
-        buttonRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Переход на форму регистрации
-                Intent intent = new Intent(MainActivity.this, RegistrationActivity.class);
-                startActivity(intent);
-            }
+        buttonRegister.setOnClickListener(view -> {
+            // Переход на форму регистрации
+            Intent intent = new Intent(MainActivity.this, RegistrationActivity.class);
+            startActivity(intent);
         });
     }
 

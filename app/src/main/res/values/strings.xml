@@ -49,4 +49,8 @@
     <string name="password" />
     <string name="register" />
     <string name="data_placeholder" />
+    <string name="Привествие">Добро пожаловать!</string>
+    <string name="user_name">Имя пользователя:</string>
+    <string name="email2">Email:</string>
+    <string name="exit">Выйти</string>
 </resources>

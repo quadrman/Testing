@@ -1,10 +1,13 @@
 package com.example.testing;
 
+import android.annotation.SuppressLint;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +17,7 @@ public class DataActivity extends AppCompatActivity {
     TextView textViewData, textViewUsername;
     SQLiteDatabase db;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +57,16 @@ public class DataActivity extends AppCompatActivity {
             textKolClick.setText(clicker);
             db.execSQL("UPDATE users SET click = ? WHERE login = ?", new Object[]{number, username});
 
+        }));
+        Button buttonColor =findViewById(R.id.buttonColor);
+        buttonColor.setOnClickListener((view -> {
+            LinearLayout layout =findViewById(R.id.layout);
+
+            int red = (int) (Math.random() * 256);
+            int green = (int) (Math.random() * 256);
+            int blue = (int) (Math.random() * 256);
+            int randomColor = Color.rgb(red, green, blue);
+            layout.setBackgroundColor(randomColor);
         }));
     }
 
