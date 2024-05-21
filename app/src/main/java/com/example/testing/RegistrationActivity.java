@@ -32,7 +32,14 @@ public class RegistrationActivity extends AppCompatActivity {
         // Получение доступа к базе данных
         db = openOrCreateDatabase("UserData", MODE_PRIVATE, null);
         buttonAlready.setOnClickListener(v -> finish());
-
+        CheckBox ShowPassword = findViewById(R.id.checkBoxShowPassword);
+        ShowPassword.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                editTextRegPassword.setTransformationMethod(null);
+            } else {
+                editTextRegPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            }
+        });
         buttonRegister.setOnClickListener(v -> {
             String username = editTextRegUsername.getText().toString();
             String password = editTextRegPassword.getText().toString();
@@ -54,14 +61,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     finish(); // Закрытие формы регистрации
                     db.close();
                 }
-                CheckBox ShowPassword = findViewById(R.id.checkBoxShowPassword);
-                ShowPassword.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                    if (isChecked) {
-                        editTextRegPassword.setTransformationMethod(null);
-                    } else {
-                        editTextRegPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                    }
-                });
+
 
             }
         });

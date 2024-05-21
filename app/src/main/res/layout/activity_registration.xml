@@ -36,22 +36,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Пароль"
-        tools:ignore="HardcodedText" />
-
-    <EditText
-        android:id="@+id/editTextPassword"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@drawable/rounded_edittext"
-        android:inputType="textPassword"
-        android:padding="12dp"
-        tools:ignore="Autofill,LabelFor" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:text="Электронная почта"
         tools:ignore="HardcodedText" />
 
@@ -63,6 +47,22 @@
         android:inputType="textEmailAddress"
         android:padding="12dp"
         android:textColor="#000000"
+        tools:ignore="Autofill,LabelFor" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Пароль"
+        tools:ignore="HardcodedText" />
+
+    <EditText
+        android:id="@+id/editTextPassword"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/rounded_edittext"
+        android:inputType="textPassword"
+        android:padding="12dp"
         tools:ignore="Autofill,LabelFor" />
 
     <CheckBox
